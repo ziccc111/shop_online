@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  *  Mapper 接口
  * </p>
  *
- * @author wujiahao
- * @since 2023-11-08
+ * @author zhong
+ * @since 2023-11-09
  */
 public interface IndexCarouselMapper extends BaseMapper<IndexCarousel> {
 

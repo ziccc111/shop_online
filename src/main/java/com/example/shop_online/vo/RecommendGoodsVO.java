@@ -1,0 +1,28 @@
+package com.example.shop_online.vo;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+/**
+ * author：zhong
+ * Date：2023/11/11 14:56
+ */
+@Data
+public class RecommendGoodsVO {
+    @Schema(description = "主键id")
+    private String Id;
+    @Schema(description = "商品名称")
+    private String  name;
+    @JsonProperty("desc")
+    @Schema(description = "商品简介")
+    private String description;
+    @Schema(description = "售价")
+    private String price;
+    @Schema(description = "封面图")
+    @JsonProperty("picture")
+    private String cover;
+    @Schema(description = "销售额")
+    @JsonProperty("orderNum")
+    private String salesCount;
+}
