@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zhong
  * @since 2023-11-09
  */
+
 @Tag(name = "商品模块")
 @RestController
 @RequestMapping("goods")
@@ -34,20 +35,19 @@ public class GoodsController {
     public Result<IndexTabRecommendVO> getTabRecommendGoodsByTabId(@RequestBody @Validated RecommendByTabGoodsQuery query) {
         IndexTabRecommendVO result = goodsService.getTabRecommendGoodsByTabId(query);
         return Result.ok(result);
-    }
 
+
+    }
     @Operation(summary = "首页-猜你喜欢")
     @PostMapping("guessLike")
     public Result<PageResult<RecommendGoodsVO>> getRecommendGoodsByPage(@RequestBody @Validated Query query) {
         PageResult<RecommendGoodsVO> result = goodsService.getRecommendGoodsByPage(query);
         return Result.ok(result);
     }
-
     @Operation(summary = "首页-商品详情")
     @GetMapping("detail")
     public Result<GoodsVO> getGoodsDetail(@RequestParam Integer id) {
         GoodsVO goodsDetail = goodsService.getGoodsDetail(id);
         return Result.ok(goodsDetail);
     }
-
 }

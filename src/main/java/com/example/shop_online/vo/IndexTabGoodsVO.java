@@ -5,10 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-/**
- * author：zhong
- * Date：2023/11/11 14:57
- */
 @Data
 public class IndexTabGoodsVO {
     @Schema(description = "主键id")

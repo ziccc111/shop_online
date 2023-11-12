@@ -5,10 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
-/**
- * author：zhong
- * Date：2023/11/11 14:55
- */
 @Data
 public class Query {
     @NotNull(message = "页码不能为空")

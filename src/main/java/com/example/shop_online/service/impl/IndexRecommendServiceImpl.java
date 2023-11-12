@@ -22,6 +22,7 @@ import java.util.List;
 @Service
 public class IndexRecommendServiceImpl extends ServiceImpl<IndexRecommendMapper, IndexRecommend> implements IndexRecommendService {
 
+
     @Override
     public List<IndexRecommendVO> getList() {
         LambdaQueryWrapper<IndexRecommend> wrapper = new LambdaQueryWrapper<>();

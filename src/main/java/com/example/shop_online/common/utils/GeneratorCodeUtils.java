@@ -2,11 +2,8 @@ package com.example.shop_online.common.utils;
 
 import java.util.Random;
 
-/**
- * author：zhong
- * Date：2023/11/11 8:15
- */
 public class GeneratorCodeUtils {
+
     /**
      * 生成6位随机数
      * @return

@@ -46,17 +46,17 @@ public class IndexCarousel {
 
     @ApiModelProperty("逻辑删除(0-未删除，1-已删除)")
     @TableField("delete_flag")
-    @JsonIgnore
     @TableLogic
+    @JsonIgnore
     private Byte deleteFlag;
 
     @ApiModelProperty("创建时间")
-    @JsonIgnore
     @TableField(value = "create_time", fill = FieldFill.INSERT)
+
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
-    @JsonIgnore
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+
     private LocalDateTime updateTime;
 }

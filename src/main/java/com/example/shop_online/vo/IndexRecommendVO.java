@@ -6,10 +6,6 @@ import lombok.Data;
 
 import java.util.List;
 
-/**
- * author：zhong
- * Date：2023/11/11 14:47
- */
 @Data
 @Schema(description = "首页热门推荐")
 public class IndexRecommendVO {

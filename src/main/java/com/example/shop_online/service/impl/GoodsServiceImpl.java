@@ -32,45 +32,45 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements GoodsService {
-    private final IndexRecommendMapper indexRecommendMapper;
-    private final IndexRecommendTabMapper indexRecommendTabMapper;
-    private final GoodsDetailMapper goodsDetailMapper;
-    private final GoodsSpecificationMapper goodsSpecificationMapper;
-    private final GoodsSpecificationDetailMapper goodsSpecificationDetailMapper;
-
+    private IndexRecommendMapper indexRecommendMapper;
+    private IndexRecommendTabMapper indexRecommendTabMapper;
+    private GoodsDetailMapper goodsDetailMapper;
+    private GoodsSpecificationMapper goodsSpecificationMapper;
+    private  GoodsSpecificationDetailMapper  goodsSpecificationDetailMapper;
     @Override
     public IndexTabRecommendVO getTabRecommendGoodsByTabId(RecommendByTabGoodsQuery query) {
-        // 1.根据推荐的recommendId查询实体
         IndexRecommend indexRecommend = indexRecommendMapper.selectById(query.getSubType());
-        if (indexRecommend==null){
+        if (indexRecommend == null) {
             throw new ServerException("推荐分类不存在");
         }
-        // 2.查询该分类下的tab列表
+//        2、查询该分类下的tab 列表
         LambdaQueryWrapper<IndexRecommendTab> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(IndexRecommendTab::getRecommendId,indexRecommend.getId());
-        List<IndexRecommendTab> tabList  = indexRecommendTabMapper.selectList(wrapper);
-        if (tabList.size()==0){
-            throw new ServerException("该分类下不存在tab分类");
+        wrapper.eq(IndexRecommendTab::getRecommendId, indexRecommend.getId());
+        List<IndexRecommendTab> tabList = indexRecommendTabMapper.selectList(wrapper);
+        if (tabList.size() == 0) {
+            throw new ServerException("该分类下不存在 tab 分类");
         }
-        // 3.tab分类下的商品列表
+//        3、tab分类下的商品列表
         List<IndexTabGoodsVO> list = new ArrayList<>();
-        for (IndexRecommendTab item:tabList){
+        for (IndexRecommendTab item : tabList) {
             IndexTabGoodsVO tabGoods = new IndexTabGoodsVO();
             tabGoods.setId(item.getId());
             tabGoods.setName(item.getName());
-            Page<Goods> page = new Page<>(query.getPage(),query.getPageSize());
-            Page<Goods> goodsPage = baseMapper.selectPage(page,new LambdaQueryWrapper<Goods>());
+            Page<Goods> page = new Page<>(query.getPage(), query.getPageSize());
+            Page<Goods> goodsPage = baseMapper.selectPage(page, new LambdaQueryWrapper<Goods>().eq(Goods::getTabId, item.getId()));
             List<RecommendGoodsVO> goodsList = GoodsConvert.INSTANCE.convertToRecommendGoodsVOList(goodsPage.getRecords());
-            PageResult<RecommendGoodsVO> result = new PageResult<>(page.getTotal(),  query.getPageSize(), query.getPage(),page.getPages(),goodsList);
+            PageResult<RecommendGoodsVO> result = new PageResult<>(page.getTotal(), query.getPageSize(), query.getPage(), page.getPages(), goodsList);
             tabGoods.setGoodsItems(result);
             list.add(tabGoods);
-
         }
+
         IndexTabRecommendVO recommendVO = new IndexTabRecommendVO();
         recommendVO.setId(indexRecommend.getId());
         recommendVO.setName(indexRecommend.getName());
         recommendVO.setCover(indexRecommend.getCover());
         recommendVO.setSubTypes(list);
+
+
         return recommendVO;
     }
 
@@ -81,7 +81,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         List<RecommendGoodsVO> result = GoodsConvert.INSTANCE.convertToRecommendGoodsVOList(goodsPage.getRecords());
         return new PageResult<>(page.getTotal(), query.getPageSize(), query.getPage(), page.getPages(), result);
     }
-
     @Override
     public GoodsVO getGoodsDetail(Integer id) {
         //     根据id 获取商品详情
@@ -105,5 +104,4 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         goodsVO.setSimilarProducts(goodsVOList);
         return goodsVO;
     }
-
 }

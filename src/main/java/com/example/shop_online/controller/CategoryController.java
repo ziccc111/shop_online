@@ -28,13 +28,13 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
 
+
     @GetMapping("index")
     @Operation(summary = "首页-商品分类")
     public Result<List<Category>> getIndexCategoryList() {
         List<Category> list = categoryService.getIndexCategoryList();
         return Result.ok(list);
     }
-
     @GetMapping("top")
     @Operation(summary = "tab分类页-商品分类")
     public Result<List<CategoryVO>> getList() {

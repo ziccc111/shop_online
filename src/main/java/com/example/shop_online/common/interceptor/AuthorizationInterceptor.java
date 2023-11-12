@@ -1,4 +1,5 @@
-package com.example.shop_online.interceptor;
+package com.example.shop_online.common.interceptor;
+
 
 import com.example.shop_online.common.exception.ServerException;
 import com.example.shop_online.common.utils.JWTUtils;
@@ -11,8 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Map;
-
-import static com.example.shop_online.constant.APIConstant.*;
 
 public class AuthorizationInterceptor implements HandlerInterceptor {
 
