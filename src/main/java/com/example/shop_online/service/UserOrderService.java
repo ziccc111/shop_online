@@ -1,7 +1,15 @@
 package com.example.shop_online.service;
 
+import com.example.shop_online.common.result.PageResult;
 import com.example.shop_online.entity.UserOrder;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.shop_online.query.CancelGoodsQuery;
+import com.example.shop_online.query.OrderPreQuery;
+import com.example.shop_online.query.OrderQuery;
+import com.example.shop_online.vo.*;
+import io.lettuce.core.dynamic.annotation.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +20,33 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-11-09
  */
 public interface UserOrderService extends IService<UserOrder> {
+    //提交订单
+    Integer addGoodsOrder(UserOrderVO orderVO);
+
+    //订单详情
+    OrderDetailVO getOrderDetail(Integer id);
+
+    SubmitOrderVO getPreOrderDetail(Integer userId);
+
+    SubmitOrderVO getPreNowOrderDetail(OrderPreQuery query);
+
+    SubmitOrderVO getRepurchaseOrderDetail(Integer id);
+
+    //订单列表
+    PageResult<OrderDetailVO> getOrderList(OrderQuery query);
+    //取消订单
+    OrderDetailVO cancelOrder(CancelGoodsQuery query);
+    //删除订单
+    void deleteOrder(List<Integer> ids,Integer userId);
+
+    //模拟支付
+    void payOrder(Integer id);
+
+    //模拟发货
+    void consignOrder(Integer id);
+    //确认收货
+    OrderDetailVO receiptOrder(Integer id);
+    //获取订单物流信息
+    OrderLogisticVO getOrderLogistics(Integer id);
 
 }
